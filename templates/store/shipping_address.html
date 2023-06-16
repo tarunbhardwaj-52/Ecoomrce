@@ -1,0 +1,258 @@
+{% extends "partials/base.html" %}
+ {% load static %}
+  
+  {% block title %}
+    Shipping & Billing Details
+  {% endblock title %}
+    
+  {% load crispy_forms_tags %}
+  {% block content %} 
+
+<!-- {% crispy form %} -->
+<style>
+  ul,
+  li {
+    list-style: none;
+  }
+</style>
+<div class="body_content_wrapper position-relative" style="margin-top: 30px">
+  <!-- Inner Page Breadcrumb -->
+  <section class="inner_page_breadcrumb">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-6">
+          <div class="breadcrumb_content">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="{% url 'store:home' %}">Home</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a href="{% url 'store:cart-view' %}">Shop</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a href="{% url 'store:cart-view' %}">My Cart</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                <a href="#">Shipping Details</a>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+  <!-- Shop Checkouts Content -->
+  <section class="shop-cart pt30">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-lg-4 m-auto">
+          <div class="main-title text-center">
+            <h2 class="title">Billing & Shipping Details</h2>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="cartList">
+        <div class="col-lg-8 col-xl-9" style="overflow: hidden">
+          <div
+            class="shopping_cart_table table-responsive"
+            style="overflow: hidden"
+          >
+            <form
+              class="form2"
+              id="coupon_form"
+              name="contact_form"
+              method="POST"
+              style=""
+            >
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group mb-3">
+                    <label class="form-label">Full Name *</label>
+                    {{form.full_name}}
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label">Email Address *</label>
+                    {{form.email}}
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label">Mobile *</label>
+                    {{form.mobile}}
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="form-group mb-3">
+                    <label class="form-label">Country*</label>
+                    {{form.country}}
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label">State*</label>
+                    {{form.state}}
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label">City or Town*</label>
+                    {{form.town_city}}
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label">Street and Home Address*</label>
+                    {{form.address}}
+                  </div>
+                </div>
+                <!-- <div class="col-sm-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label">Postal Code*</label>
+                    {{form.postal_code}}
+                  </div>
+                </div> -->
+                <div class="col-sm-12">
+                  <div class="form-group mb-3">
+                    <label class="form-check-label" for="efwefwe"
+                      >Is shipping address same as billing address</label
+                    >
+                    <input
+                      type="checkbox"
+                      class="form-check-input checkbox_check"
+                      id="checkboxIdInput"
+                      checked
+                    />
+                  </div>
+                </div>
+
+                <div class="row" hidden id="actions">
+                  <h3>Add Billing Address</h3>
+                  <div class="col-sm-12 col-lg-6">
+                    <div class="form-group mb-3">
+                      <label class="form-label">Select Billing Country</label>
+                      {{form.billing_country}}
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-lg-6">
+                    <div class="form-group mb-3">
+                      <label class="form-label">Select Billing State</label>
+                      {{form.billing_state}}
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-lg-6">
+                    <div class="form-group mb-3">
+                      <label class="form-label">Select Billing Town or City</label>
+                      {{form.billing_town_city}}
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-lg-6">
+                    <div class="form-group mb-3">
+                      <label class="form-label">Select Billing Address</label>
+                      {{form.billing_address}}
+                    </div>
+                  </div>
+                  <!-- <div class="col-sm-12 col-lg-6">
+                    <div class="form-group mb-3">
+                      <label class="form-label">Select Billing Postal Code</label>
+                      {{form.billing_postal_code}}
+                    </div>
+                  </div> -->
+                </div>
+
+                {% if totalcartitems %}
+                <button type="submit" class="btn purple-btn btn-block h-10">
+                  Proceed to checkout
+                </button>
+                {% endif %}
+              </div>
+              <a href="{% url 'store:cart-view' %}" class="dashed-custom"
+                >Return to cart</a
+              >
+            </form>
+          </div>
+        </div>
+        <div class="col-lg-4 col-xl-3">
+          <div class="order_sidebar_widget style2">
+            <h4 class="title">Cart Totals</h4>
+            <ul>
+              <li class="subtitle">
+                <p>
+                  Product Subtotal
+                  <span class="float-end"
+                    >{{ cs }}{{cart_total_amount|floatformat:2}}</span
+                  >
+                </p>
+              </li>
+              <li class="subtitle">
+                <p>
+                  Estimated Shipping
+                  <i
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Tooltip on top"
+                    class="bi bi-info-circle-fill"
+                  ></i>
+                  <span class="float-end"
+                    >{{ cs }}{{total_shipping_amount|floatformat:2}}</span
+                  >
+                </p>
+              </li>
+              <li class="subtitle">
+                <p>
+                  Estimated {{tax_country.custom_name}}
+                  <i
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Tooltip on top"
+                    class="bi bi-info-circle-fill"
+                  ></i
+                  ><span class="float-end"
+                    >{{cs}}{{ tax_amount_|floatformat:2 }}</span
+                  >
+                </p>
+              </li>
+              <li class="subtitle">
+                <p>
+                  Service Fee
+                  <span class="float-end"
+                    >{{ cs }}{{service_fee_amount|floatformat:2}}</span
+                  >
+                </p>
+              </li>
+              <li class="subtitle"><hr /></li>
+              <li class="subtitle totals">
+                <p>
+                  Total
+                  <span class="float-end"
+                    >{{cs}}{{total_amount|floatformat:2}}</span
+                  >
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    var checkboxes = $("input[type='checkbox']"),
+      actions = $("#actions");
+    checkboxes.click(function () {
+      console.log(checkboxes);
+      actions.attr("hidden", checkboxes.is(":checked"));
+    });
+  });
+</script>
+
+{% endblock content %}

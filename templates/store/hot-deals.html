@@ -1,0 +1,347 @@
+{% extends "partials/base.html" %} {% load static %} 
+
+{% block title %}
+  Hot Deal 🔥
+{% endblock title %}
+  
+{% block content %}
+<style>
+  ul,
+  li {
+    list-style: none;
+  }
+</style>
+<!-- Listing Grid View -->
+<section class="our-listing pt0" style="margin-top: 100px;">
+  <div class="container">
+    <div class="row mt50">
+      <div class="col-lg-12">
+        <div class="main-title">
+          <h1 class="title text-center">Hot Deals 🔥</h1>
+        </div>
+        <div class="shop_item_4grid_slider dots_none owl-theme owl-carousel">
+                            
+          {% for p in featured_hot_deals %}
+              
+              <div class="item border-rounded-cus" style="padding-left: 10px; border-radius: 20px;">
+                  <div class="shop_item small_style bdrs6 hvr_bdr1 home2_style border border-rounded-cus">
+                      <div class="thumb pb30">
+                          <a href="{% url 'store:product-detail' p.slug %}">
+                              <img src="{{p.image.url}}"
+                                  style="height: 200px; width: 100%; object-fit: cover; border-radius: 3px;"
+                                  class="product-img-avatar" alt="Best Seller Item"
+                              >
+                          </a>
+                          <div class="thumb_info">
+                              <ul class="mb0">
+                                  <li><a class="action-btn add-to-wishlist" data-product-item="{{p.id}}"><span
+                                              class="fas fa-heart"></span></a></li>
+                              </ul>
+                          </div>
+                          <input type="hidden" class="product-tax-fee-{{ p.id }}"
+                              value="{{ new_rate_|floatformat:2 }}">
+                          <input type="hidden" class="product-processing-fee-{{ p.id }}"
+                              value="{{ service_fee_rate_ }}">
+                          <input type="hidden" class="product-vendor-{{ p.id }}" value="{{ p.vendor.id }}">
+                          <input type="hidden" class="product-vendor-name-{{ p.id }}"
+                              value="{{ p.vendor.shop_name }}">
+                          <input type="hidden" class="product-shipping_amount-{{ p.id }}"
+                              value="{{ p.shipping_amount }}">
+                          <input class="product-quantity-{{ p.id }}" type="hidden" value="1"
+                              id="product-quantity" class="w-25 mb-10 product-quantity-{{ p.id }}">
+                          <input type="hidden" class="product-price-{{ p.id }}" value="{{ p.price }}">
+                          <input type="hidden" class="product-pid-{{ p.id }}" value="{{ p.pid }}">
+                          <input type="hidden" class="product-image-{{ p.id }}" value="{{ p.image.url }}">
+                          <input type="hidden" class="product-id-{{ p.id }}" value="{{ p.id }}">
+                          <input type="hidden" class="product-title-{{ p.id }}" value="{{ p.title }}">
+                          <input type="hidden" class="product-slug-{{ p.id }}" value="{{ p.slug }}">
+
+                          {% if p.type == "auction" %}
+                          <div class="shop_item_cart_bftn d-grid mt-2"><a class="btn purple-btn"
+                                  href="{% url 'store:product-detail' p.slug %}">Join Bidding Now</a></div>
+                          {% endif %}
+
+                          {% if p.type == "offer" %}
+                          <div class="shop_item_cart_bftn d-grid mt-2"><a class="btn purple-btn"
+                                  href="{% url 'store:product-detail' p.slug %}">Submit Price Offer</a></div>
+                          {% endif %}
+
+                          {% if p.type == "regular" %}
+                          <div class="shop_item_cart_bftn d-grid"><a
+                                  class="btn btn-tfhm button-add-to-cart add-to-cart-btn purple-btn mt-2"
+                                  data-index="{{ p.id }}" id="add-to-cart-btn">Add to Cart</a></div>
+                          {% endif %}
+                      </div>
+                      <div class="details">
+                          <div class="title mt-0 mb0 mb-0 mt0"><a
+                                  href="{% url 'store:product-detail' p.slug %}">{{p.title|title|truncatechars:20}}</a>
+                          </div>
+                          <div class="sub_title mt-0 mb0 mb-2 mb2"><a
+                                  href="{% url 'vendor:vendor_shop_view_page' p.vendor.vid %}"
+                                  class="dashed-custom"><small>By
+                                      {{p.vendor.shop_name|truncatechars:20}}</small></a></div>
+                          <div class="review d-block">
+                              <ul class="mb0 me-2">
+
+                                  {% if p.rating_count == 0 %}
+                                  <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                  </li>
+                                  {% endif %}
+
+                                  {% if p.product_rating >= 1 and p.product_rating < 2 %}
+                                  <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                  </li>
+                                  {% endif %}
+
+                                  {% if p.product_rating >= 2 and p.product_rating < 3 %}
+                                  <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                  </li>
+                                  <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                  </li>
+                                  {% endif %}
+
+                                  {% if p.product_rating >= 3 and p.product_rating < 4 %}
+                                  <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                  </li>
+                                  <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                  </li>
+                                  <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                  </li>
+                                  {% endif %}
+
+                                  {% if p.product_rating >= 4 and p.product_rating < 5 %}
+                                  <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                  </li>
+                                  <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                  </li>
+                                  <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                  </li>
+                                  <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                  </li>
+                                  {% endif %}
+
+                                  {% if p.product_rating >= 5 and p.product_rating < 6 %}
+                                  <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                  </li>
+                                  <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                  </li>
+                                  <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                  </li>
+                                  <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                  </li>
+                                  <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                  </li>
+                                  {% endif %}
+
+                              </ul>
+                              {% if p.rating_count == 0 %}
+                              <div class="review_count"><a><small>Not Rated Yet</small></a></div>
+                              {% else %}
+                              <div class="review_count"><a><small>{{p.product_rating|floatformat:1}}/5.0
+                                          ({{p.rating_count}}
+                                          review{{p.rating_count|pluralize:"s"}})</small></a></div>
+                              {% endif %}
+
+                          </div>
+                          <div class="si_footer">
+                              <div class="price">{{cs}}{{p.price}} {% if p.old_price != 0.00 %}
+                                  <small><del>{{ cs }}{{p.old_price}}</del></small>{% endif %}</div>
+                              <!-- <a class="action-btn add-to-wishlist" data-product-item="{{p.id}}"><span class="fas fa-heart"></span></a> -->
+
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+          {% endfor %}
+          
+      </div>
+      </div>
+    </div>
+    <div class="row mt60">
+      <div class="col-lg-12 col-xl-12 pl50 pl15-md">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="main-title bb1 pb10">
+              <h2 class="title">All Hot Deals Product</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="row">
+            {% for p in products %}
+            <div class="col-sm-6 col-lg-3 col-xl-3 p0 pl15-520 mb-3 mb3">
+              <div class="item border-rounded-cus" style="padding-left: 10px; border-radius: 20px;">
+                <div class="shop_item small_style bdrs6 hvr_bdr1 home2_style border border-rounded-cus">
+                    <div class="thumb pb30">
+                        <a href="{% url 'store:product-detail' p.slug %}">
+                            <img src="{{p.image.url}}"
+                                style="height: 200px; width: 100%; object-fit: cover; border-radius: 3px;"
+                                class="product-img-avatar" alt="Best Seller Item"
+                            >
+                        </a>
+                        <div class="thumb_info">
+                            <ul class="mb0">
+                                <li><a class="action-btn add-to-wishlist" data-product-item="{{p.id}}"><span
+                                            class="fas fa-heart"></span></a></li>
+                            </ul>
+                        </div>
+                        <input type="hidden" class="product-tax-fee-{{ p.id }}"
+                            value="{{ new_rate_|floatformat:2 }}">
+                        <input type="hidden" class="product-processing-fee-{{ p.id }}"
+                            value="{{ service_fee_rate_ }}">
+                        <input type="hidden" class="product-vendor-{{ p.id }}" value="{{ p.vendor.id }}">
+                        <input type="hidden" class="product-vendor-name-{{ p.id }}"
+                            value="{{ p.vendor.shop_name }}">
+                        <input type="hidden" class="product-shipping_amount-{{ p.id }}"
+                            value="{{ p.shipping_amount }}">
+                        <input class="product-quantity-{{ p.id }}" type="hidden" value="1"
+                            id="product-quantity" class="w-25 mb-10 product-quantity-{{ p.id }}">
+                        <input type="hidden" class="product-price-{{ p.id }}" value="{{ p.price }}">
+                        <input type="hidden" class="product-pid-{{ p.id }}" value="{{ p.pid }}">
+                        <input type="hidden" class="product-image-{{ p.id }}" value="{{ p.image.url }}">
+                        <input type="hidden" class="product-id-{{ p.id }}" value="{{ p.id }}">
+                        <input type="hidden" class="product-title-{{ p.id }}" value="{{ p.title }}">
+                        <input type="hidden" class="product-slug-{{ p.id }}" value="{{ p.slug }}">
+
+                        {% if p.type == "auction" %}
+                        <div class="shop_item_cart_bftn d-grid mt-2"><a class="btn purple-btn"
+                                href="{% url 'store:product-detail' p.slug %}">Join Bidding Now</a></div>
+                        {% endif %}
+
+                        {% if p.type == "offer" %}
+                        <div class="shop_item_cart_bftn d-grid mt-2"><a class="btn purple-btn"
+                                href="{% url 'store:product-detail' p.slug %}">Submit Price Offer</a></div>
+                        {% endif %}
+
+                        {% if p.type == "regular" %}
+                        <div class="shop_item_cart_bftn d-grid"><a
+                                class="btn btn-tfhm button-add-to-cart add-to-cart-btn purple-btn mt-2"
+                                data-index="{{ p.id }}" id="add-to-cart-btn">Add to Cart</a></div>
+                        {% endif %}
+                    </div>
+                    <div class="details">
+                        <div class="title mt-0 mb0 mb-0 mt0"><a
+                                href="{% url 'store:product-detail' p.slug %}">{{p.title|title|truncatechars:27}}</a>
+                        </div>
+                        <div class="sub_title mt-0 mb0 mb-2 mb2"><a
+                                href="{% url 'vendor:vendor_shop_view_page' p.vendor.vid %}"
+                                class="dashed-custom"><small>By
+                                    {{p.vendor.shop_name|truncatechars:20}}</small></a></div>
+                        <div class="review d-block">
+                            <ul class="mb0 me-2">
+
+                                {% if p.rating_count == 0 %}
+                                <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                </li>
+                                {% endif %}
+
+                                {% if p.product_rating >= 1 and p.product_rating < 2 %}
+                                <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                </li>
+                                {% endif %}
+
+                                {% if p.product_rating >= 2 and p.product_rating < 3 %}
+                                <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                </li>
+                                <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                </li>
+                                {% endif %}
+
+                                {% if p.product_rating >= 3 and p.product_rating < 4 %}
+                                <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                </li>
+                                <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                </li>
+                                <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                </li>
+                                {% endif %}
+
+                                {% if p.product_rating >= 4 and p.product_rating < 5 %}
+                                <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                </li>
+                                <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                </li>
+                                <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                </li>
+                                <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                </li>
+                                {% endif %}
+
+                                {% if p.product_rating >= 5 and p.product_rating < 6 %}
+                                <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                </li>
+                                <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                </li>
+                                <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                </li>
+                                <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                </li>
+                                <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
+                                </li>
+                                {% endif %}
+
+                            </ul>
+                            {% if p.rating_count == 0 %}
+                            <div class="review_count"><a><small>Not Rated Yet</small></a></div>
+                            {% else %}
+                            <div class="review_count"><a><small>{{p.product_rating|floatformat:1}}/5.0
+                                        ({{p.rating_count}}
+                                        review{{p.rating_count|pluralize:"s"}})</small></a></div>
+                            {% endif %}
+
+                        </div>
+                        <div class="si_footer">
+                            <div class="price">{{cs}}{{p.price}} {% if p.old_price != 0.00 %}
+                                <small><del>{{ cs }}{{p.old_price}}</del></small>{% endif %}</div>
+                            <!-- <a class="action-btn add-to-wishlist" data-product-item="{{p.id}}"><span class="fas fa-heart"></span></a> -->
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            </div>
+            {% empty %}
+            <div>
+              <h4>No Hot Deals Yet...</h4>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="mbp_pagination mt30 text-center">
+                <ul class="page_navigation">
+                  {% if products.has_previous %}
+                  <li class="page-item">
+                    <a
+                      class="page-link"
+                      href="{% url 'store:shop' %}?page={{products.previous_page_number}}"
+                      tabindex="-1"
+                      aria-disabled="true"
+                    >
+                      <span class="fas fa-angle-left"></span
+                    ></a>
+                  </li>
+                  {% endif %} {% if products.has_next %}
+                  <li class="page-item">
+                    <a
+                      class="page-link"
+                      href="{% url 'store:shop' %}?page={{products.next_page_number}}"
+                      ><span class="fas fa-angle-right"></span
+                    ></a>
+                  </li>
+                  {% endif %}
+                </ul>
+                <p class="mt20 pagination_page_count text-center">
+                  {{products}} -- {{products_couunt.count}} Products found
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}
