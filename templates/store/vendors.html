@@ -88,13 +88,13 @@
                         <ul class="page_navigation">
                             {% if vendors.has_previous %}
                             <li class="page-item">
-                            <a class="page-link" href="{% url 'store:vendors' %}?page={{vendors.previous_page_number}}" tabindex="-1" aria-disabled="true"> <span class="fas fa-angle-left"></span></a>
+                            <a class="page-link" href="?page={{vendors.previous_page_number}}" tabindex="-1" aria-disabled="true"> <span class="fas fa-angle-left"></span></a>
                             </li>
                         {% endif %}
                         
                         {% if vendors.has_next %}
                             <li class="page-item">
-                            <a class="page-link" href="{% url 'store:vendors' %}?page={{vendors.next_page_number}}"><span class="fas fa-angle-right"></span></a>
+                            <a class="page-link" href="?page={{vendors.next_page_number}}"><span class="fas fa-angle-right"></span></a>
                             </li>
                         {% endif %}
                         </ul>

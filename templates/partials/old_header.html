@@ -182,7 +182,7 @@
         <ul id="respMenu2" class="ace-responsive-menu widget_menu_home2 wa" data-menu-style="horizontal">
           <!-- <li class="list-inline-item list_c"><a href="#">Deal of the Day</a></li> -->
           <li class="list-inline-item list_c"><a href="{% url 'store:hot_deals' %}">Hot Deals</a></li>
-          <li class="list-inline-item list_c"><a href="{% url 'store:vendors' %}">Shops</a></li>
+          <li class="list-inline-item list_c"><a href="">Shops</a></li>
           <li class="list-inline-item list_c"><a href="{% url 'core:order-tracker' %}">Track Order</a></li>
         </ul>
       </div>
@@ -419,11 +419,11 @@
         <li class="title" style="font-size: 15px;"><span><a href="{% url 'store:hot_deals' %}">Hot Deals 🔥</a></span></li>
         <hr>
         {% if request.user.profile.seller == True %}
-        <li style="font-size: 15px;"><span><a href="{% url 'store:vendors' %}">Vendor Dashboard <i class="fas fa-apps"></i></a></span></li>
+        <li style="font-size: 15px;"><span><a href="">Vendor Dashboard <i class="fas fa-apps"></i></a></span></li>
         {% else %}
         <li style="font-size: 15px;"><span><a href="{% url 'vendor:become-vendor' %}">Become a Vendor</a></span></li>
         {% endif %}
-        <li style="font-size: 15px;"><span><a href="{% url 'store:vendors' %}">Vendors</a></span></li>
+        <li style="font-size: 15px;"><span><a href="">Vendors</a></span></li>
         <li style="font-size: 15px;"><span><a href="{% url 'core:order-tracker' %}">Track Order 🚚</a></span></li>
         <li style="font-size: 15px;"><span><a href="{% url 'blog:blog-list' %}">Blog</a></span></li>
 

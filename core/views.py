@@ -283,25 +283,33 @@ def delete_from_wishlist(request, id):
     messages.success(request, "Product removed from wishlist")
     return redirect("core:buyer-wishlist")
 
-@login_required
 def add_to_wishlist(request):
     product_id = request.GET['id']
     product = Product.objects.get(id=product_id)
 
     context = {}
+    login_bool = False
+    bool = None
 
-    wishlist_count = Wishlist.objects.filter(product=product, user=request.user).count()
-    print(wishlist_count)
+    if request.user.is_authenticated:
+        wishlist_count = Wishlist.objects.filter(product=product, user=request.user).count()
+        print(wishlist_count)
 
-    if wishlist_count > 0: 
-        context = { "bool": True }
+        login_bool = True
+        if wishlist_count > 0: 
+            bool = False
+        else:
+            new_wishlist = Wishlist.objects.create(user=request.user,product=product)
+            new_wishlist.save()
+            bool = True
+
     else:
-        new_wishlist = Wishlist.objects.create(user=request.user,product=product)
-        new_wishlist.save()
-
-        context = {"bool": True}
-
-    return JsonResponse(context)
+        login_bool = False
+    data = {
+        "bool":bool,
+        "login_bool":login_bool,
+    }
+    return JsonResponse({"data":data})
 
 @login_required
 def buyer_invoices(request):

@@ -759,18 +759,21 @@
               <div class="shop_single_product_details shop_single3_style sidebar ss3_style mb-3 mb-xl-0">
                 <div class="sspd_price mb25 text-center text-success">Offer Accepted <i class="fas fa-check-circle"></i></div>
                 <ul class="cart_btns ui_kit_button mb15">
-                  <input type="hidden" class="product-tax-fee-{{ product.id }}" value="{{ new_rate|floatformat:2 }}">
-                  <input type="hidden" class="product-processing-fee-{{ product.id }}" value="{{ service_fee_rate }}">
-                  <input type="hidden" class="product-vendor-{{ product.id }}" value="{{ product.vendor.id }}">
-                  <input type="hidden" class="product-vendor-name-{{ product.id }}" value="{{ product.vendor.shop_name }}">
-                  <input type="hidden" class="product-shipping_amount-{{ product.id }}" value="{{ product.shipping_amount }}">
-                  <input type="hidden" class="product-price-{{ product.id }}" value="{{ my_offer_obj.price }}">
-                  <input type="hidden" class="product-pid-{{ product.id }}" value="{{ product.pid }}">
-                  <input type="hidden" class="product-image-{{ product.id }}" value="{{ product.image.url }}">
-                  <input type="hidden" class="product-id-{{ product.id }}" value="{{ product.id }}">
-                  <input type="hidden" class="product-slug-{{ product.id }}" value="{{ product.slug }}">
+                  <input type="hidden" class="product-tax-fee-{{ product.id }}" value="{{ new_rate_|floatformat:2 }}" />
+                  <input type="hidden" class="product-processing-fee-{{ product.id }}" value="{{ service_fee_rate_ }}" />
+                  <input type="hidden" class="product-vendor-{{ product.id }}" value="{{ product.vendor.id }}" />
+                  <input type="hidden" class="product-vendor-name-{{ product.id }}" value="{{ product.vendor.shop_name }}" />
+                  <input type="hidden" class="product-shipping_amount-{{ product.id }}" value="{{ product.shipping_amount }}" />
+                  <input type="hidden" class="product-quantity-{{ product.id }}" value="1" id="product-quantity" class="w-25 mb-10 product-quantity-{{ product.id }}" />
+                  <input type="hidden" class="product-price-{{ product.id }}" value="{{ product.price }}" />
+                  <input type="hidden" class="product-pid-{{ product.id }}" value="{{ product.pid }}" />
+                  <input type="hidden" class="product-image-{{ product.id }}" value="{{ product.image.url }}" />
+                  <input type="hidden" class="product-id-{{ product.id }}" value="{{ product.id }}" />
+                  <input type="hidden" class="product-title-{{ product.id }}" value="{{ product.title }}" />
+                  <input type="hidden" class="product-slug-{{ product.id }}" value="{{ product.slug }}" />
+                  <input type="text" class="product-stock-qty-{{ product.id }}" value="{{ product.stock_qty }}" />
+                  <input type="text" class="product-in-stock-{{ product.id }}" value="{{ product.in_stock }}" />
 
-                  <input type="hidden" class="product-title-{{ product.id }}" value="{{ product.title }}">
                   <li><button type="button" class="btn purple-btn w100 button-add-to-cart add-to-cart-btn" data-index="{{ product.id }}" id="add-to-cart-btn" style="color: #fff;">Add to cart</button></li>
                 </ul>
                 <ul class="shop_single_wishlist_area d-flex justify-content-center">
@@ -842,18 +845,8 @@
                   </li>
                   
                   <!-- <input type="hidden" class="product-new-rate{{ product.id }}" value="{{ new_rate }}"> -->
-                  <input type="hidden" class="product-tax-fee-{{ product.id }}" value="{{ new_rate|floatformat:2 }}">
-                  <input type="hidden" class="product-processing-fee-{{ product.id }}" value="{{ service_fee_rate }}">
-                  <input type="hidden" class="product-vendor-{{ product.id }}" value="{{ product.vendor.id }}">
-                  <input type="hidden" class="product-vendor-name-{{ product.id }}" value="{{ product.vendor.shop_name }}">
-                  <input type="hidden" class="product-shipping_amount-{{ product.id }}" value="{{ product.shipping_amount }}">
-                  <input type="hidden" class="product-price-{{ product.id }}" value="{{ product.price }}">
-                  <input type="hidden" class="product-pid-{{ product.id }}" value="{{ product.pid }}">
-                  <input type="hidden" class="product-image-{{ product.id }}" value="{{ product.image.url }}">
-                  <input type="hidden" class="product-id-{{ product.id }}" value="{{ product.id }}">
-                  <input type="hidden" class="product-slug-{{ product.id }}" value="{{ product.slug }}">
-                  <input type="hidden" class="product-title-{{ product.id }}" value="{{ product.title }}">
-
+                  
+                  {% include 'store/add_to_cart_product_detail.html' %}
                   <li><button type="button" class="btn purple-btn btnf-thm w100 button-add-to-cart add-to-cart-btn" data-index="{{ product.id }}" id="add-to-cart-btn" style="color: #fff;">Add to cart</button></li>
                   <!-- <button type="submit" class="button button-add-to-cart add-to-cart-btn" data-index="{{ p.id }}" id="add-to-cart-btn"><i class="fi-rs-shopping-cart"></i>Add to cart</button> -->
                 </ul>
@@ -1379,136 +1372,7 @@
                             
                     {% for p in featured_hot_deals %}
                         
-                        <div class="item border-rounded-cus" style="padding-left: 10px; border-radius: 20px;">
-                            <div class="shop_item small_style bdrs6 hvr_bdr1 home2_style border border-rounded-cus">
-                                <div class="thumb pb30">
-                                    <a href="{% url 'store:product-detail' p.slug %}">
-                                        <img src="{{p.image.url}}"
-                                            style="height: 200px; width: 100%; object-fit: cover; border-radius: 3px;"
-                                            class="product-img-avatar" alt="Best Seller Item"
-                                        >
-                                    </a>
-                                    <div class="thumb_info">
-                                        <ul class="mb0">
-                                            <li><a class="action-btn add-to-wishlist" data-product-item="{{p.id}}"><span
-                                                        class="fas fa-heart"></span></a></li>
-                                        </ul>
-                                    </div>
-                                    <input type="hidden" class="product-tax-fee-{{ p.id }}"
-                                        value="{{ new_rate_|floatformat:2 }}">
-                                    <input type="hidden" class="product-processing-fee-{{ p.id }}"
-                                        value="{{ service_fee_rate_ }}">
-                                    <input type="hidden" class="product-vendor-{{ p.id }}" value="{{ p.vendor.id }}">
-                                    <input type="hidden" class="product-vendor-name-{{ p.id }}"
-                                        value="{{ p.vendor.shop_name }}">
-                                    <input type="hidden" class="product-shipping_amount-{{ p.id }}"
-                                        value="{{ p.shipping_amount }}">
-                                    <input class="product-quantity-{{ p.id }}" type="hidden" value="1"
-                                        id="product-quantity" class="w-25 mb-10 product-quantity-{{ p.id }}">
-                                    <input type="hidden" class="product-price-{{ p.id }}" value="{{ p.price }}">
-                                    <input type="hidden" class="product-pid-{{ p.id }}" value="{{ p.pid }}">
-                                    <input type="hidden" class="product-image-{{ p.id }}" value="{{ p.image.url }}">
-                                    <input type="hidden" class="product-id-{{ p.id }}" value="{{ p.id }}">
-                                    <input type="hidden" class="product-title-{{ p.id }}" value="{{ p.title }}">
-                                    <input type="hidden" class="product-slug-{{ p.id }}" value="{{ p.slug }}">
-
-                                    {% if p.type == "auction" %}
-                                    <div class="shop_item_cart_bftn d-grid mt-2"><a class="btn purple-btn"
-                                            href="{% url 'store:product-detail' p.slug %}">Join Bidding Now</a></div>
-                                    {% endif %}
-
-                                    {% if p.type == "offer" %}
-                                    <div class="shop_item_cart_bftn d-grid mt-2"><a class="btn purple-btn"
-                                            href="{% url 'store:product-detail' p.slug %}">Submit Price Offer</a></div>
-                                    {% endif %}
-
-                                    {% if p.type == "regular" %}
-                                    <div class="shop_item_cart_bftn d-grid"><a
-                                            class="btn btn-tfhm button-add-to-cart add-to-cart-btn purple-btn mt-2"
-                                            data-index="{{ p.id }}" id="add-to-cart-btn">Add to Cart</a></div>
-                                    {% endif %}
-                                </div>
-                                <div class="details">
-                                    <div class="title mt-0 mb0 mb-0 mt0"><a
-                                            href="{% url 'store:product-detail' p.slug %}">{{p.title|title|truncatechars:20}}</a>
-                                    </div>
-                                    <div class="sub_title mt-0 mb0 mb-2 mb2"><a
-                                            href="{% url 'vendor:vendor_shop_view_page' p.vendor.vid %}"
-                                            class="dashed-custom"><small>By
-                                                {{p.vendor.shop_name|truncatechars:20}}</small></a></div>
-                                    <div class="review d-block">
-                                        <ul class="mb0 me-2">
-
-                                            {% if p.rating_count == 0 %}
-                                            <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                            </li>
-                                            {% endif %}
-
-                                            {% if p.product_rating >= 1 and p.product_rating < 2 %}
-                                            <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                            </li>
-                                            {% endif %}
-
-                                            {% if p.product_rating >= 2 and p.product_rating < 3 %}
-                                            <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                            </li>
-                                            <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                            </li>
-                                            {% endif %}
-
-                                            {% if p.product_rating >= 3 and p.product_rating < 4 %}
-                                            <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                            </li>
-                                            <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                            </li>
-                                            <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                            </li>
-                                            {% endif %}
-
-                                            {% if p.product_rating >= 4 and p.product_rating < 5 %}
-                                            <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                            </li>
-                                            <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                            </li>
-                                            <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                            </li>
-                                            <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                            </li>
-                                            {% endif %}
-
-                                            {% if p.product_rating >= 5 and p.product_rating < 6 %}
-                                            <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                            </li>
-                                            <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                            </li>
-                                            <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                            </li>
-                                            <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                            </li>
-                                            <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                            </li>
-                                            {% endif %}
-
-                                        </ul>
-                                        {% if p.rating_count == 0 %}
-                                        <div class="review_count"><a><small>Not Rated Yet</small></a></div>
-                                        {% else %}
-                                        <div class="review_count"><a><small>{{p.product_rating|floatformat:1}}/5.0
-                                                    ({{p.rating_count}}
-                                                    review{{p.rating_count|pluralize:"s"}})</small></a></div>
-                                        {% endif %}
-
-                                    </div>
-                                    <div class="si_footer">
-                                        <div class="price">{{cs}}{{p.price}} {% if p.old_price != 0.00 %}
-                                            <small><del>{{ cs }}{{p.old_price}}</del></small>{% endif %}</div>
-                                        <!-- <a class="action-btn add-to-wishlist" data-product-item="{{p.id}}"><span class="fas fa-heart"></span></a> -->
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
+                    {% include 'store/product_list.html' %}
                     {% endfor %}
                     
                 </div>
@@ -1532,137 +1396,7 @@
                 <div class="shop_item_4grid_slider dots_none owl-theme owl-carousel">
                             
                   {% for p in featured_hot_deals %}
-                      
-                      <div class="item border-rounded-cus" style="padding-left: 10px; border-radius: 20px;">
-                          <div class="shop_item small_style bdrs6 hvr_bdr1 home2_style border border-rounded-cus">
-                              <div class="thumb pb30">
-                                  <a href="{% url 'store:product-detail' p.slug %}">
-                                      <img src="{{p.image.url}}"
-                                          style="height: 200px; width: 100%; object-fit: cover; border-radius: 3px;"
-                                          class="product-img-avatar" alt="Best Seller Item"
-                                      >
-                                  </a>
-                                  <div class="thumb_info">
-                                      <ul class="mb0">
-                                          <li><a class="action-btn add-to-wishlist" data-product-item="{{p.id}}"><span
-                                                      class="fas fa-heart"></span></a></li>
-                                      </ul>
-                                  </div>
-                                  <input type="hidden" class="product-tax-fee-{{ p.id }}"
-                                      value="{{ new_rate_|floatformat:2 }}">
-                                  <input type="hidden" class="product-processing-fee-{{ p.id }}"
-                                      value="{{ service_fee_rate_ }}">
-                                  <input type="hidden" class="product-vendor-{{ p.id }}" value="{{ p.vendor.id }}">
-                                  <input type="hidden" class="product-vendor-name-{{ p.id }}"
-                                      value="{{ p.vendor.shop_name }}">
-                                  <input type="hidden" class="product-shipping_amount-{{ p.id }}"
-                                      value="{{ p.shipping_amount }}">
-                                  <input class="product-quantity-{{ p.id }}" type="hidden" value="1"
-                                      id="product-quantity" class="w-25 mb-10 product-quantity-{{ p.id }}">
-                                  <input type="hidden" class="product-price-{{ p.id }}" value="{{ p.price }}">
-                                  <input type="hidden" class="product-pid-{{ p.id }}" value="{{ p.pid }}">
-                                  <input type="hidden" class="product-image-{{ p.id }}" value="{{ p.image.url }}">
-                                  <input type="hidden" class="product-id-{{ p.id }}" value="{{ p.id }}">
-                                  <input type="hidden" class="product-title-{{ p.id }}" value="{{ p.title }}">
-                                  <input type="hidden" class="product-slug-{{ p.id }}" value="{{ p.slug }}">
-
-                                  {% if p.type == "auction" %}
-                                  <div class="shop_item_cart_bftn d-grid mt-2"><a class="btn purple-btn"
-                                          href="{% url 'store:product-detail' p.slug %}">Join Bidding Now</a></div>
-                                  {% endif %}
-
-                                  {% if p.type == "offer" %}
-                                  <div class="shop_item_cart_bftn d-grid mt-2"><a class="btn purple-btn"
-                                          href="{% url 'store:product-detail' p.slug %}">Submit Price Offer</a></div>
-                                  {% endif %}
-
-                                  {% if p.type == "regular" %}
-                                  <div class="shop_item_cart_bftn d-grid"><a
-                                          class="btn btn-tfhm button-add-to-cart add-to-cart-btn purple-btn mt-2"
-                                          data-index="{{ p.id }}" id="add-to-cart-btn">Add to Cart</a></div>
-                                  {% endif %}
-                              </div>
-                              <div class="details">
-                                  <div class="title mt-0 mb0 mb-0 mt0"><a
-                                          href="{% url 'store:product-detail' p.slug %}">{{p.title|title|truncatechars:20}}</a>
-                                  </div>
-                                  <div class="sub_title mt-0 mb0 mb-2 mb2"><a
-                                          href="{% url 'vendor:vendor_shop_view_page' p.vendor.vid %}"
-                                          class="dashed-custom"><small>By
-                                              {{p.vendor.shop_name|truncatechars:20}}</small></a></div>
-                                  <div class="review d-block">
-                                      <ul class="mb0 me-2">
-
-                                          {% if p.rating_count == 0 %}
-                                          <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                          </li>
-                                          {% endif %}
-
-                                          {% if p.product_rating >= 1 and p.product_rating < 2 %}
-                                          <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                          </li>
-                                          {% endif %}
-
-                                          {% if p.product_rating >= 2 and p.product_rating < 3 %}
-                                          <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                          </li>
-                                          <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                          </li>
-                                          {% endif %}
-
-                                          {% if p.product_rating >= 3 and p.product_rating < 4 %}
-                                          <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                          </li>
-                                          <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                          </li>
-                                          <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                          </li>
-                                          {% endif %}
-
-                                          {% if p.product_rating >= 4 and p.product_rating < 5 %}
-                                          <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                          </li>
-                                          <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                          </li>
-                                          <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                          </li>
-                                          <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                          </li>
-                                          {% endif %}
-
-                                          {% if p.product_rating >= 5 and p.product_rating < 6 %}
-                                          <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                          </li>
-                                          <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                          </li>
-                                          <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                          </li>
-                                          <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                          </li>
-                                          <li class="list-inline-item"><a href="#"><i class="fas fa-star"></i></a>
-                                          </li>
-                                          {% endif %}
-
-                                      </ul>
-                                      {% if p.rating_count == 0 %}
-                                      <div class="review_count"><a><small>Not Rated Yet</small></a></div>
-                                      {% else %}
-                                      <div class="review_count"><a><small>{{p.product_rating|floatformat:1}}/5.0
-                                                  ({{p.rating_count}}
-                                                  review{{p.rating_count|pluralize:"s"}})</small></a></div>
-                                      {% endif %}
-
-                                  </div>
-                                  <div class="si_footer">
-                                      <div class="price">{{cs}}{{p.price}} {% if p.old_price != 0.00 %}
-                                          <small><del>{{ cs }}{{p.old_price}}</del></small>{% endif %}</div>
-                                      <!-- <a class="action-btn add-to-wishlist" data-product-item="{{p.id}}"><span class="fas fa-heart"></span></a> -->
-
-                                  </div>
-
-                              </div>
-                          </div>
-                      </div>
+                  {% include 'store/product_list.html' %}
                   {% endfor %}
                   
               </div>

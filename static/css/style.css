@@ -17403,7 +17403,17 @@ input.quantity-num[type="number"]::-webkit-outer-spin-button {
     border-radius: 6px;
 }
 
+.btngray{
+    border: 1px solid gray; 
+    color: #fff;
+    border-radius: 6px;
+}
+
 .purple-btn:hover{
     background-color: #b331ff; 
+    color: #fff;
+}
+
+.text-white{
     color: #fff;
 }

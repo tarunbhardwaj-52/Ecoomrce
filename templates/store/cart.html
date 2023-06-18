@@ -49,7 +49,7 @@ Cart
     }
   }
 </style>
-<div class="body_content_wrapper position-relative">
+<div class="body_content_wrapper position-relative" id="cartList">
   <!-- Inner Page Breadcrumb -->
   <section class="inner_page_breadcrumb" style="margin-top: 10px">
     <div class="container">
@@ -126,9 +126,10 @@ Cart
                         >
                           <span class="fz16">{{p.title|truncatechars:27}}</span>
                           <br />
-                          <span class="fz16"
-                            >By: <b><i>{{p.shop_name|title}}</i></b></span
-                          >
+                          <span class="fz16">By: <b><i>{{p.shop_name|title}}</i></b></span>
+                          <br />
+                          <span class="fz16">Stock Qty: </a><span id="stock_qty{{product_id}}">{{p.product_stock_qty}}</span></span>
+
                           <br />
                         </a>
                       </li>
@@ -150,6 +151,9 @@ Cart
                     class="product-product_tax_fee-{{ product_id }}"
                     value="{{ p.product_tax_fee }}"
                   />
+
+                  <input type="hidden" class="product-product_stock_qty-{{ product_id }}" value="{{ p.product_stock_qty }}" />
+
 
                   <td>
                     <div class="cart_btn">

@@ -1,6 +1,12 @@
 from django.contrib import admin
 from store.models import CartOrderItem, Product ,Category, CartOrder, Gallery, Brand, ProductFaq, Review, ProductBidders, ProductOffers
 from import_export.admin import ImportExportModelAdmin
+from django.contrib.auth.admin import UserAdmin
+from django.db import models
+from django.forms import ModelChoiceField
+from userauths.models import User, Profile
+
+
 
 @admin.action(description="Mark selected products as published")
 def make_published(modeladmin, request, queryset):
@@ -20,6 +26,11 @@ class ProductImagesAdmin(admin.TabularInline):
 class CartOrderItemsInlineAdmin(admin.TabularInline):
     model = CartOrderItem
 
+
+class StaffUserChoiceField(ModelChoiceField):
+    def label_from_instance(self, obj):
+        return obj.username
+
 class ProductAdmin(ImportExportModelAdmin):
     inlines = [ProductImagesAdmin]
     search_fields = ['title', 'price']
@@ -30,6 +41,25 @@ class ProductAdmin(ImportExportModelAdmin):
     # list_per_page = 500
     list_per_page = 1300
     prepopulated_fields = {"slug": ("title", )}
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == 'user':
+            kwargs['queryset'] = User.objects.filter(is_staff=True)
+            kwargs['form_class'] = StaffUserChoiceField
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+
+
+
+
+
+# class ProductAdmin(admin.ModelAdmin):
+#     def formfield_for_foreignkey(self, db_field, request, **kwargs):
+#         if db_field.name == 'user':
+#             kwargs['queryset'] = User.objects.filter(is_staff=True)
+#             kwargs['form_class'] = StaffUserChoiceField
+#         return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
 
     
 class CategoryAdmin(ImportExportModelAdmin):
@@ -67,6 +97,7 @@ class ProductReviewAdmin(admin.ModelAdmin):
 
 class ProductOfferAdmin(ImportExportModelAdmin):
     list_display = ['user', 'product', 'price','status', 'email']
+
 
 
 
