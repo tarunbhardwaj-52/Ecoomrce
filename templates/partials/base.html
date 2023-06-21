@@ -303,7 +303,7 @@
               </li>
               <li class="megamenu_style">
                 <a href="{% url 'store:shop' %}"
-                  ><span class="title">View Items</span></a
+                  ><span class="title">Shop</span></a
                 >
               </li>
               <li class="megamenu_style">
@@ -420,9 +420,7 @@
               <li class="list-inline-item list_c">
                 <a href="{% url 'store:hot_deals' %}">Hot Deals</a>
               </li>
-              <li class="list-inline-item list_c">
-                <a href="{% url 'store:vendors' %}">Shops</a>
-              </li>
+              
               <li class="list-inline-item list_c">
                 <a href="{% url 'core:order-tracker' %}">Track Order</a>
               </li>
@@ -1455,26 +1453,6 @@
                   </li>
                   <br />
                   <hr />
-
-                  {% if request.user.profile.seller == True %}
-                  <li class="nav-item">
-                    <a
-                      class="nav-link collapsed"
-                      href="{% url 'vendor:dashboard' %}"
-                      ><span class="bi bi-grid-1x2-fill"></span>Vendor
-                      Dashboard<i class="fas fa-right-from-bracket arrow"></i
-                    ></a>
-                  </li>
-                  {% else %}
-                  <li class="nav-item">
-                    <a
-                      class="nav-link collapsed"
-                      href="{% url 'vendor:become-vendor' %}"
-                      ><span class="bi bi-grid-1x2-fill"></span>Become a
-                      vendor<i class="fas fa-right-from-bracket arrow"></i
-                    ></a>
-                  </li>
-                  {% endif %}
 
                   <br />
                   <hr />

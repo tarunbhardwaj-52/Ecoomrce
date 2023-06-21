@@ -86,6 +86,7 @@ $(document).on("click", "#question-btn", function(){
 
 
 
+
     // Add to cart functionality
     $(".add-to-cart-btn").on("click", function(){
     
@@ -103,6 +104,10 @@ $(document).on("click", "#question-btn", function(){
         let product_processing_fee = $(".product-processing-fee-" + index).val()
         let product_vendor = $(".product-vendor-" + index).val() 
         let product_vendor_name = $(".product-vendor-name-" + index).val() 
+        let product_vendor_slug = $(".product-vendor-slug-" + index).val() 
+
+        let product_stock_qty = $(".product-stock-qty-" + index).val() 
+        let product_in_stock = $(".product-in-stock-" + index).val() 
     
         let product_pid = $(".product-pid-" + index).val()
         let product_image = $(".product-image-" + index).val()
@@ -122,41 +127,54 @@ $(document).on("click", "#question-btn", function(){
         console.log("Currrent Element:", this_val);
         console.log("product_processing_fee:", product_processing_fee);
         console.log("product_tax_fee:", product_tax_fee);
-    
-        $.ajax({
-            url: '/ajax/add-to-cart/',
-            data: {
-                'id': product_id,
-                'product_slug': product_slug,
-                'pid': product_pid,
-                'image': product_image,
-                'qty': quantity,
-                'title': product_title,
-                'shipping_amount': product_shipping_amount,
-                'vendor': product_vendor,
-                'vendor_name': product_vendor_name,
-                'price': product_price,
-                'product_processing_fee': product_processing_fee,
-                'product_tax_fee': product_tax_fee,
-            },
-            dataType: 'json',
-            beforeSend: function(){
-                console.log("Adding Product to Cart...");
-            },
-            success: function(response){
-                // this_val.html("✓")
-                this_val.html("Added to cart <i class='fas fa-check-circle'></i>")
+        console.log("product_vendor_slug:", product_vendor_slug);
+        console.log("product_stock_qty:", product_stock_qty);
+        console.log("product_in_stock:", product_in_stock);
 
-                console.log("Added Product to Cart!");
-                $(".cart-items-count").text(response.totalcartitems)
-    
-    
-            }
-        })
+        if (quantity > product_stock_qty) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops... Stock Qty Exceeded!',
+                text: 'You are exceeding the stock current quantity of ' + product_stock_qty,
+              })
+            $(".product-quantity-"+index).val(product_stock_qty)
+        } else {
+            $.ajax({
+                url: '/ajax/add-to-cart/',
+                data: {
+                    'id': product_id,
+                    'product_slug': product_slug,
+                    'pid': product_pid,
+                    'image': product_image,
+                    'qty': quantity,
+                    'title': product_title,
+                    'shipping_amount': product_shipping_amount,
+                    'vendor': product_vendor,
+                    'vendor_name': product_vendor_name,
+                    'price': product_price,
+                    'product_processing_fee': product_processing_fee,
+                    'product_tax_fee': product_tax_fee,
+                    'product_vendor_slug': product_vendor_slug,
+                    'product_stock_qty': product_stock_qty,
+                    'product_in_stock': product_in_stock,
+                },
+                dataType: 'json',
+                beforeSend: function(){
+                    console.log("Adding Product to Cart...");
+                },
+                success: function(response){
+                    // this_val.html("✓")
+                    this_val.html("Added to cart <i class='fas fa-check-circle'></i>")
+
+                    console.log("Added Product to Cart!");
+                    $(".cart-items-count").text(response.totalcartitems)
+        
+        
+                }
+            })
+        }
+
     })
-
-
-
     // Update item from cart
 	$(document).on('click','.update-item',function(){
 		var _pId=$(this).attr('data-item');
@@ -166,30 +184,41 @@ $(document).on("click", "#question-btn", function(){
         let shipping_amount = $(".product-shipping_amount-" + _pId).val()
         let product_processing_fee = $(".product-product_processing_fee-" + _pId).val()
         let product_tax_fee = $(".product-product_tax_fee-" + _pId).val()
+        let product_stock_qty = $(".product-product_stock_qty-" + _pId).val()
         
 
-        console.log(_pId);
-        console.log(typeof _pQty);
-		// Ajax
-		$.ajax({
-			url:'/ajax/update-cart/',
-			data:{
-				'id':_pId,
-				'qty':_pQty,
-				'shipping_amount':shipping_amount,
-				'product_tax_fee':product_tax_fee,
-				'product_processing_fee':product_processing_fee,
-			},
-			dataType:'json',
-			beforeSend:function(){
-				_vm.attr('disabled',true);
-			},
-			success:function(res){
-				// $(".cart-list").text(res.totalitems);
-				_vm.attr('disabled',false);
-				$("#cartList").html(res.data);
-			}
-		});
+        console.log(_pQty);
+
+        if (_pQty > product_stock_qty) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops... Stock Qty Exceeded!',
+                text: 'You are exceeding the stock current quantity of ' + product_stock_qty,
+              })
+            $(".product-qty-"+_pId).val(product_stock_qty)
+        } else {
+            // Ajax
+            $.ajax({
+                url:'/ajax/update-cart/',
+                data:{
+                    'id':_pId,
+                    'qty':_pQty,
+                    'shipping_amount':shipping_amount,
+                    'product_tax_fee':product_tax_fee,
+                    'product_processing_fee':product_processing_fee,
+                },
+                dataType:'json',
+                beforeSend:function(){
+                    _vm.attr('disabled',true);
+                },
+                success:function(res){
+                    // $(".cart-list").text(res.totalitems);
+                    _vm.attr('disabled',false);
+                    $("#cartList").html(res.data);
+                }
+            });
+        }
+
         
 		// End
 	});
@@ -331,14 +360,78 @@ $(document).on("click", "#question-btn", function(){
                 console.log("Adding to wishlist...")
             },
             success: function(response){
-                // this_val.html("✓")
-                this_val.html("<i class='fas fa-check-circle'></i>")
-                if (response.bool === true) {
-                    console.log("Added to wishlist...");
+                
+
+                if (response.data.bool === false && response.data.login_bool === true) {
+                    Swal.fire({
+                        title: 'Already In Wishlist',
+                        width: 600,
+                        icon: 'warning',
+                        timer: 1000,
+                        padding: '3em',
+                        color: '#716add',
+                        background: '#fff url(/images/trees.png)',
+                        backdrop: `
+                          rgba(0,0,123,0.4)
+                          url("/images/nyan-cat.gif")
+                          left top
+                          no-repeat
+                        `
+                      })
                 }
+
+                if (response.data.bool === true && response.data.login_bool === true) {
+                    // this_val.html("<i class='fas fa-check-circle'></i>")
+
+                    Swal.fire({
+                        title: 'Added to Wishlist',
+                        width: 600,
+                        icon: 'success',
+                        timer: 1000,
+                        padding: '3em',
+                        color: '#716add',
+                        background: '#fff url(/images/trees.png)',
+                        backdrop: `
+                          rgba(0,0,123,0.4)
+                          url("/images/nyan-cat.gif")
+                          left top
+                          no-repeat
+                        `
+                      })
+                }
+
+                if (response.data.bool === null && response.data.login_bool === false) {
+                    Swal.fire({
+                        title: 'Login to ADD TO WISHLIST',
+                        width: 600,
+                        icon: 'error',
+                        timer: 3000,
+                        padding: '3em',
+                        color: '#716add',
+                        showCancelButton: true,
+                        confirmButtonText: 'Login Now',
+                        denyButtonText: `Go Back`,
+                        background: '#fff url(/images/trees.png)',
+                        backdrop: `
+                          rgba(0,0,123,0.4)
+                          url("/images/nyan-cat.gif")
+                          left top
+                          no-repeat
+                        `
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = '/user/sign-in/';
+                        }
+                      })
+                      
+                      
+                }
+                
+                
             }
         })
     })
+
 
 
 

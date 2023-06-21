@@ -1756,3 +1756,41 @@ def generate_paypal_access_token():
         return response.json()['access_token']
     else:
         raise Exception(response.json()['error_description'])
+
+
+
+
+
+
+def calculate_monthly_revenue(month, year):
+    # Convert month and year to datetime object
+    start_date = datetime(year, month, 1, tzinfo=timezone.utc)
+    if month == 12:
+        end_date = datetime(year + 1, 1, 1, tzinfo=timezone.utc)
+    else:
+        end_date = datetime(year, month + 1, 1, tzinfo=timezone.utc)
+    
+    # Calculate the revenue for the specified month
+    revenue = CartOrder.objects.filter(date__gte=start_date, date__lt=end_date).aggregate(total_revenue=Sum('total'))['total_revenue']
+    
+    return revenue or 0
+
+def list_yearly_revenue(year):
+    revenue_by_month = []
+    
+    for month in range(1, 13):
+        revenue = calculate_monthly_revenue(month, year)
+        revenue_by_month.append((month, revenue))
+    
+    return revenue_by_month
+
+
+def revenue_summary(request):
+    year = 2023  # Change this to the desired year
+    revenue_by_month = list_yearly_revenue(year)
+    
+    context = {
+        'revenue_by_month': revenue_by_month
+    }
+    
+    return render(request, 'vendor/revenue_summary.html', context)

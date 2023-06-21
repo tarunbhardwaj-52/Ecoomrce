@@ -135,26 +135,6 @@ def hot_deals(request):
     return render(request, "store/hot-deals.html", context)
 
 
-def vendors_list(request):
-    vendors = Vendor.objects.filter(active=True).order_by("-id")
-    top_selling = Product.objects.filter(status="published").order_by("-orders")[:20]
-    vendors_count = Vendor.objects.filter(active=True).order_by("-id").count()
-    
-    query = request.GET.get("q")
-    if query:
-        vendors = vendors.filter(Q(shop_name__icontains=query)|Q(shop_email__icontains=query)).distinct()
-    
-    paginator = Paginator(vendors, 12)
-    page_number = request.GET.get('page')
-    vendors = paginator.get_page(page_number)
-    
-    context = {
-        "vendors":vendors,
-        "vendors_count":vendors_count,
-        "top_selling":top_selling,
-    }
-    return render(request, "store/vendors.html", context)
-
 
 def category_detail(request, cid):
     category__ = Category.objects.get(cid=cid)
@@ -293,7 +273,6 @@ def auction_update(request, pid, bid):
     return render(request, "store/auction_update.html", context)
 
 
-
 def offer(request):
     brands = Brand.objects.filter(active=True)
     products = Product.objects.filter(status="published", type="offer")
@@ -349,9 +328,6 @@ def product_detail(request, slug):
             reviewer_status = False
         
    
-    
-    
-    
     service_fee = basic_addon.service_fee_percentage / 100 
     service_fee_flat_rate = basic_addon.service_fee_flat_rate
     service_fee_rate = 0
@@ -713,6 +689,10 @@ def add_to_cart(request):
         'pid': request.GET['pid'],
         'product_processing_fee': request.GET['product_processing_fee'],
         'product_tax_fee': request.GET['product_tax_fee'],
+        "product_stock_qty":request.GET["product_stock_qty"],
+        "product_in_stock":request.GET["product_in_stock"],        
+        "product_vendor_slug":request.GET["product_vendor_slug"],
+
     }
 
     if 'cart_data_obj' in request.session:
@@ -1258,13 +1238,38 @@ def delete_item_from_cart(request):
             cart_data = request.session['cart_data_obj']
             del request.session['cart_data_obj'][product_id]
             request.session['cart_data_obj'] = cart_data
+
+    basic_addon = BasicAddon.objects.all().first()
+    tax = basic_addon.general_tax_percentage / 100
+    cs = basic_addon.currency_sign
     
+    try:
+        location_country = request.session['location_country']
+        tax_country = TaxRate.objects.filter(country=location_country).first()
+        tax_rate = tax_country.rate / 100
+    except:
+        tax_rate = None
+        tax_country = "united States"
+
     cart_total_amount = 0
+    shipping_amount_ = 0
+    total_amount = 0
+    tax_amount = 0
+    product_processing_fee_ = 0
+    total_plus_shipping = 0
     if 'cart_data_obj' in request.session:
         for p_id, item in request.session['cart_data_obj'].items():
             cart_total_amount += int(item['qty']) * float(item['price'])
+            shipping_amount_ += int(item['qty']) * float(item['shipping_amount'])
+            
+            total_plus_shipping = cart_total_amount + shipping_amount_
+            
+            product_processing_fee_ = int(cart_total_amount) * float(item['product_processing_fee'])
+            tax_amount = total_plus_shipping * tax_rate
 
-    context = render_to_string("store/async/cart-list.html", {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount':cart_total_amount})
+            total_amount = cart_total_amount + shipping_amount_ + tax_amount + product_processing_fee_
+
+    context = render_to_string("store/async/cart-list.html", {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount':cart_total_amount, 'total_shipping_amount':shipping_amount_ , 'total_tax':tax_amount, "cs":cs, 'total_amount':total_amount, 'product_processing_fee_':product_processing_fee_, "tax_country":tax_country})
     return JsonResponse({"data": context, 'totalcartitems': len(request.session['cart_data_obj'])})
 
 def update_cart(request):
