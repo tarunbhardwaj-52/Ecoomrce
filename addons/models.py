@@ -307,7 +307,7 @@ class Home_One(models.Model):
     main_title = models.CharField(default="Keep your new born baby engaged", max_length=1010)
     sub_title = models.CharField(default="Lorem Ipsum is the best way of writing destiny car type", max_length=1010)
     button_text = models.CharField(default="Shop Now", max_length=100)
-    button_url = models.URLField(default="https://grailcavern.com/shop/", max_length=1000)
+    button_url = models.URLField(default="https://Desphixs.com/shop/", max_length=1000)
     first = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
     
@@ -325,7 +325,7 @@ class Home_Two(models.Model):
     main_title = models.CharField(default="Keep your new born baby engaged", max_length=1010)
     sub_title = models.CharField(default="Lorem Ipsum is the best way of writing destiny car type", max_length=1010)
     button_text = models.CharField(default="Shop Now", max_length=100)
-    button_url = models.URLField(default="https://grailcavern.com/shop/", max_length=1000)
+    button_url = models.URLField(default="https://Desphixs.com/shop/", max_length=1000)
     active = models.BooleanField(default=True)
     
     class Meta:

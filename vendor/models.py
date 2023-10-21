@@ -57,25 +57,25 @@ DISCOUNT_TYPE = (
 
 # Create your models here.
 class Vendor(models.Model):
-    shop_cover_image = models.ImageField(upload_to=user_directory_path, default="shop-cover-image.jpg")
-    shop_image = models.ImageField(upload_to=user_directory_path, default="shop-image.jpg")
-    shop_name = models.CharField(max_length=100, help_text="Shop Name", default="")
-    shop_description = CKEditor5Field(config_name='extends', default="", blank=True)
-    shop_policy = CKEditor5Field(config_name='extends', default="", blank=True)
+    shop_cover_image = models.ImageField(upload_to=user_directory_path, default="shop-cover-image.jpg", blank=True, null=True)
+    shop_image = models.ImageField(upload_to=user_directory_path, default="shop-image.jpg", blank=True, null=True)
+    shop_name = models.CharField(max_length=100, help_text="Shop Name", blank=True, null=True)
+    shop_description = CKEditor5Field(config_name='extends', default="", blank=True, null=True)
+    shop_policy = CKEditor5Field(config_name='extends', default="", blank=True, null=True)
     shop_email = models.CharField(max_length = 150, default="")
-    show_email_address_in_store = models.BooleanField(default=True)
-    show_mobile_number_in_store = models.BooleanField(default=True)
+    show_email_address_in_store = models.BooleanField(default=True, null=True)
+    show_mobile_number_in_store = models.BooleanField(default=True, null=True)
     
-    identity_image = models.ImageField(upload_to=user_directory_path, default="id.jpg")
-    identity_type = models.CharField(choices=IDENTITY_TYPE, default="national_id_card", max_length=100)
+    identity_image = models.ImageField(upload_to=user_directory_path, default="id.jpg", blank=True, null=True)
+    identity_type = models.CharField(choices=IDENTITY_TYPE, default="national_id_card", max_length=100, blank=True, null=True)
     
-    mobile = models.CharField(max_length = 150, default="")
-    gender = models.CharField(max_length =10, choices=GENDER, default="male")
+    mobile = models.CharField(max_length = 150, default="", blank=True, null=True)
+    gender = models.CharField(max_length =10, choices=GENDER, default="male", blank=True, null=True)
     # country = models.CharField(max_length=100, null=True, blank=True)
     country = models.ForeignKey("addons.TaxRate", on_delete=models.SET_NULL, null=True, related_name="vendor_country", blank=True)
-    city = models.CharField(max_length=100, default="")
-    state = models.CharField(max_length=100, default="")
-    address = models.CharField(max_length=1000, default="")
+    city = models.CharField(max_length=100, default="", blank=True, null=True)
+    state = models.CharField(max_length=100, default="", blank=True, null=True)
+    address = models.CharField(max_length=1000, default="", blank=True, null=True)
     
     currency = models.CharField(max_length=40, default="USD", choices=CURRENCY)
     payout_method = models.CharField(max_length=200, default="payout_to_wallet", choices=PAYOUT_METHOD)
@@ -95,7 +95,7 @@ class Vendor(models.Model):
     stripe_refresh_token = models.CharField(max_length=10000, null=True, blank=True)
 
     followers = models.ManyToManyField(User,blank=True, related_name="vendor_followers")
-    keywords = models.CharField(max_length = 1000, help_text="Add keywords related to your shop, this would help buyers locate your shop")
+    keywords = models.CharField(max_length = 1000, help_text="Add keywords related to your shop, this would help buyers locate your shop", blank=True, null=True)
     password = models.CharField(max_length=10000, null=True, blank=True)
     vid = ShortUUIDField(unique=True, length=10, max_length=20, alphabet="abcdefghijklmnopqrstuvxyz")
     date = models.DateTimeField(auto_now_add=True)

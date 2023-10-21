@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from userauths.models import User, Profile
 from django.forms import ImageField, FileInput
 from django.contrib.auth import get_user_model
-from captcha.fields import CaptchaField
+# from captcha.fields import CaptchaField
 
 
 class DateInput(forms.DateInput):
@@ -26,11 +26,11 @@ class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'form-control' , 'id': "", 'placeholder':'Email Address'}), required=False)
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'btn__btn__btn form-control' , 'id': "", 'placeholder':'Password'}), required=False)
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={ 'class': 'btn__btn__btn form-control' , 'id': "", 'placeholder':'Confirm Password'}), required=False)
-    captcha=CaptchaField()
+    # captcha=CaptchaField()
     
     class Meta:
         model = User
-        fields = ['full_name', 'username', 'email', 'password1', 'password2', 'captcha']
+        fields = ['full_name', 'username', 'email', 'password1', 'password2']
        
 
 

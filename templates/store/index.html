@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    Welcome to GrailCavern
+    Welcome to Desphixs
 {% endblock title %}
     
 {% block content %}
@@ -19,7 +19,7 @@
         
  
 
-    {% if homepage.homepage_type == "2" %}
+    <!-- {% if homepage.homepage_type == "2" %}
         {% for h in home_two %}
             <section class="home10-about pt-1  border-bottom" style="margin-top: 20px;">
                 <div class="container maxw1800">
@@ -61,7 +61,6 @@
                                             <span class="tag home8_style">{{home_one_first.small_title}}</span>
                                             <h3 class="banner-title">
                                                 <span class="fw400">{{home_one_first.main_title}}</span>
-                                                <!-- <span class="color-light-blue">& Care Supplies</span>    -->
                                             </h3>
                                             <p class="heading-color">
                                                 {{home_one_first.sub_title}}
@@ -70,7 +69,6 @@
                                         </div>
                                         <div class="col-lg-5 d-none d-lg-block">
                                             <div class="animate_content text-center text-xl-start zi1">
-                                                <!-- <img class="offbanenr_3" src="{{home_one_first.image.url}}" style="border-radius: 10px; margin-top: 50px;" alt="" /> -->
                                                 <div class="animate_thumb"><img src="{{home_one_first.image.url}}" style="border-radius: 10px; " alt="{{home_one_first.main_title|truncatechars:10}}'s Img." /></div>
                                             </div>
                                         </div>
@@ -87,7 +85,6 @@
                                             <span class="tag home8_style">{{h.small_title}}</span>
                                             <h3 class="banner-title">
                                                 <span class="fw400">{{h.main_title}}</span>
-                                                <!-- <span class="color-light-blue">& Care Supplies</span>    -->
                                             </h3>
                                             <p class="heading-color">
                                                 {{h.sub_title}}
@@ -96,7 +93,6 @@
                                         </div>
                                         <div class="col-lg-5 d-none d-lg-block">
                                             <div class="animate_content text-center text-xl-start zi1">
-                                                <!-- <img class="offbanenr_3" src="{{h.image.url}}" alt="" style="border-radius: 10px; margin-top: 50px;" /> -->
                                                 <div class="animate_thumb"><img src="{{h.image.url}}" style="border-radius: 50px; margin-top: 50px;" alt="{{home_one_first.main_title|truncatechars:10}}'s Img." /></div>
                                             </div>
                                         </div>
@@ -108,7 +104,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="col-xl-4">
+               <div class="col-xl-4">
                     {% for p in featured_products_2 %}
                     
                     <div class="banner_one home1_style color2 mb30">
@@ -123,8 +119,7 @@
                         </div>
                     </div>
                     {% endfor %}
-                </div> -->
-                <!-- <input type="hidden" class="product-slug-{{ product.id }}" value="{{ product.slug }}"> -->
+                </div> 
 
                 <div class="col-lg-12 col-md-12 col-xl-4"> 
                     <div class="home2_right_slider" >
@@ -136,7 +131,6 @@
                                     <div class="details">
                                         <p class="para color-light-blue">Starting from<span class="fw500"> {{ cs }}{{ p.price|intcomma }}</span></p>
                                         <h4 class="titfle">{{ p.title|truncatechars:30 }}</h4>
-                                        <!-- <a class="shop_btn">Add to cart</a> -->
                                     </div>
                                     <div class="thumb text-center mb-3"><img src="{{p.image.url}}" style="height: 360px; object-fit: cover; border-radius: 15px;" alt="Home 2 banner Side Item" /></div>
                                 </div>
@@ -149,7 +143,230 @@
             </div>
         </div>
     </section>
-    {% endif %}
+    {% endif %} -->
+
+
+    <section class="home-one mt50">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8">
+                    <div class="main-banner-wrapper home1_style at_home6 bdrs6 ovh mb-4 mb-xl-0">
+                        <div class="banner-style-one owl-theme owl-carousel owl-loaded">
+                            <div class="owl-stage-outer">
+                                <div class="owl-stage" style="transform: translate3d(-1472.05px, 0px, 0px); transition: all 0s ease 0s; width: 4416.14px;">
+                                    <div class="owl-item cloned" style="width: 736.023px; margin-right: 0px;">
+                                        <div class="slide slide-one" style="background-image: url(images/background/home6-bg1.png); background-position: center; height: 510px;">
+                                            <div class="container">
+                                                <div class="row home-content">
+                                                    <div class="col-lg-5 pl60">
+                                                        <span class="tag home6_style">Special Offer</span>
+                                                        <h3 class="banner-title color-white">
+                                                            <span class="fw400">Immersive</span><br />
+                                                            Entertainment
+                                                        </h3>
+                                                        <p class="color-white">Discover our new items. Up to<span class="fw500">25% Off !</span></p>
+                                                        <a href="page-shop-cart.html" class="btn banner-btn home6_style btn-white btn-thm bdrs6">Shop Now</a>
+                                                    </div>
+                                                    <div class="col-lg-7 px-0 d-none d-lg-block">
+                                                        <div class="animate_content text-center text-xl-start">
+                                                            <div class="animate_thumb"><img src="images/home/home6-item.png" alt="Home 6 Product" /></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="owl-item cloned" style="width: 736.023px; margin-right: 0px;">
+                                        <div class="slide slide-one" style="background-image: url(images/background/home6-bg1.png); background-position: center; height: 510px;">
+                                            <div class="container">
+                                                <div class="row home-content">
+                                                    <div class="col-lg-5 pl60">
+                                                        <span class="tag home6_style">Special Offer</span>
+                                                        <h3 class="banner-title color-white">
+                                                            <span class="fw400">Immersive</span><br />
+                                                            Entertainment
+                                                        </h3>
+                                                        <p class="color-white">Discover our new items. Up to<span class="fw500">25% Off !</span></p>
+                                                        <a href="page-shop-cart.html" class="btn banner-btn home6_style btn-white btn-thm bdrs6">Shop Now</a>
+                                                    </div>
+                                                    <div class="col-lg-7 px-0 d-none d-lg-block">
+                                                        <div class="animate_content text-center text-xl-start">
+                                                            <div class="animate_thumb"><img src="images/home/home6-item.png" alt="Home 6 Product" /></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="owl-item active" style="width: 736.023px; margin-right: 0px;">
+                                        <div class="slide slide-one" style="background-image: url(images/background/home6-bg1.png); background-position: center; height: 510px;">
+                                            <div class="container">
+                                                <div class="row home-content">
+                                                    <div class="col-lg-5 pl60">
+                                                        <span class="tag home6_style">Special Offer</span>
+                                                        <h3 class="banner-title color-white">
+                                                            <span class="fw400">Immersive</span><br />
+                                                            Entertainment
+                                                        </h3>
+                                                        <p class="color-white">Discover our new items. Up to<span class="fw500">25% Off !</span></p>
+                                                        <a href="page-shop-cart.html" class="btn banner-btn home6_style btn-white btn-thm bdrs6">Shop Now</a>
+                                                    </div>
+                                                    <div class="col-lg-7 px-0 d-none d-lg-block">
+                                                        <div class="animate_content text-center text-xl-start">
+                                                            <div class="animate_thumb" style="transform: perspective(500px) translateZ(0px) rotateX(3.73338deg) rotateY(11.2528deg); transition: none 0s ease 0s;">
+                                                                <img src="images/home/home6-item.png" alt="Home 6 Product" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="owl-item" style="width: 736.023px; margin-right: 0px;">
+                                        <div class="slide slide-one" style="background-image: url(images/background/home6-bg1.png); background-position: center; height: 510px;">
+                                            <div class="container">
+                                                <div class="row home-content">
+                                                    <div class="col-lg-5 pl60">
+                                                        <span class="tag home6_style">Special Offer</span>
+                                                        <h3 class="banner-title color-white">
+                                                            <span class="fw400">Immersive</span><br />
+                                                            Entertainment
+                                                        </h3>
+                                                        <p class="color-white">Discover our new items. Up to<span class="fw500">25% Off !</span></p>
+                                                        <a href="page-shop-cart.html" class="btn banner-btn home6_style btn-white btn-thm bdrs6">Shop Now</a>
+                                                    </div>
+                                                    <div class="col-lg-7 px-0 d-none d-lg-block">
+                                                        <div class="animate_content text-center text-xl-start">
+                                                            <div class="animate_thumb"><img src="images/home/home6-item.png" alt="Home 6 Product" /></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="owl-item cloned" style="width: 736.023px; margin-right: 0px;">
+                                        <div class="slide slide-one" style="background-image: url(images/background/home6-bg1.png); background-position: center; height: 510px;">
+                                            <div class="container">
+                                                <div class="row home-content">
+                                                    <div class="col-lg-5 pl60">
+                                                        <span class="tag home6_style">Special Offer</span>
+                                                        <h3 class="banner-title color-white">
+                                                            <span class="fw400">Immersive</span><br />
+                                                            Entertainment
+                                                        </h3>
+                                                        <p class="color-white">Discover our new items. Up to<span class="fw500">25% Off !</span></p>
+                                                        <a href="page-shop-cart.html" class="btn banner-btn home6_style btn-white btn-thm bdrs6">Shop Now</a>
+                                                    </div>
+                                                    <div class="col-lg-7 px-0 d-none d-lg-block">
+                                                        <div class="animate_content text-center text-xl-start">
+                                                            <div class="animate_thumb"><img src="images/home/home6-item.png" alt="Home 6 Product" /></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="owl-item cloned" style="width: 736.023px; margin-right: 0px;">
+                                        <div class="slide slide-one" style="background-image: url(images/background/home6-bg1.png); background-position: center; height: 510px;">
+                                            <div class="container">
+                                                <div class="row home-content">
+                                                    <div class="col-lg-5 pl60">
+                                                        <span class="tag home6_style">Special Offer</span>
+                                                        <h3 class="banner-title color-white">
+                                                            <span class="fw400">Immersive</span><br />
+                                                            Entertainment
+                                                        </h3>
+                                                        <p class="color-white">Discover our new items. Up to<span class="fw500">25% Off !</span></p>
+                                                        <a href="page-shop-cart.html" class="btn banner-btn home6_style btn-white btn-thm bdrs6">Shop Now</a>
+                                                    </div>
+                                                    <div class="col-lg-7 px-0 d-none d-lg-block">
+                                                        <div class="animate_content text-center text-xl-start">
+                                                            <div class="animate_thumb"><img src="images/home/home6-item.png" alt="Home 6 Product" /></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="owl-controls">
+                                <div class="owl-nav">
+                                    <div class="owl-prev" style="">prev</div>
+                                    <div class="owl-next" style="">next</div>
+                                </div>
+                                <div class="owl-dots" style="">
+                                    <div class="owl-dot active"><span></span></div>
+                                    <div class="owl-dot"><span></span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="banner_one home1_style at_home6_home_area color1 mb30">
+                        <div class="thumb style1"><img class="float-end" src="images/banner/smartwatch.png" alt="smartwatch" /></div>
+                        <div class="details">
+                            <p class="para color-light-blue">Starting from<span class="fw500">$899.</span></p>
+                            <h3 class="title">Health Care Monitor</h3>
+                            <a href="page-shop-list-v1.html" class="shop_btn">Shop Now</a>
+                        </div>
+                    </div>
+                    <div class="banner_one home1_style at_home6_home_area color2 mb30">
+                        <div class="thumb style1"><img class="float-end" src="images/banner/hanpicked.png" alt="EarPhone" /></div>
+                        <div class="details">
+                            <p class="para color-light-blue">Starting from<span class="fw500">$899.</span></p>
+                            <h3 class="title">Stainless Steel Scissors</h3>
+                            <a href="page-shop-list-v1.html" class="shop_btn">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="features pt0 pb20">
+        <div class="container bb1">
+            <div class="row">
+                <div class="col-sm-6 col-xl-3">
+                    <div class="icon_boxes d-flex">
+                        <div class="icon"><span class="flaticon-fast-delivery"></span></div>
+                        <div class="details">
+                            <h5 class="title">Free Shipping</h5>
+                            <p class="para">Free Shipping for orders over $200</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <div class="icon_boxes d-flex">
+                        <div class="icon"><span class="flaticon-shield"></span></div>
+                        <div class="details">
+                            <h5 class="title">Money Guarantee</h5>
+                            <p class="para">Within 30 days for an exchange.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <div class="icon_boxes d-flex">
+                        <div class="icon"><span class="flaticon-headphones"></span></div>
+                        <div class="details">
+                            <h5 class="title">Online Support</h5>
+                            <p class="para">24 hours a day, 7 days a week</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <div class="icon_boxes d-flex">
+                        <div class="icon"><span class="flaticon-credit-card"></span></div>
+                        <div class="details">
+                            <h5 class="title">Flexible Payment</h5>
+                            <p class="para">Pay with Multiple Credit Cards</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
 
     {% if category %}

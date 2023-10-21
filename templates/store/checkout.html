@@ -202,95 +202,15 @@ Checkout
                   {% endfor %}
                 </div>
                  <div class="ui_kit_button payment_widget_btn">
-                  
-                  {% for p in payment_method %}
-
-                     {% if "Stripe" in p.name %}
-                        <button  button id="checkout-button" class="btn btn-track purple-btn w100 mt20">Pay with Debit Card  <i class="fas fa-credit-card"></i></button>
-                     {% endif %}
-
-                     {% if "PayPal" in p.name %}
-                        <button class="btn btn-track purple-btn w100 mt10" style="height: 80px;">
-                           Pay with PayPal <i class="fab fa-paypal"></i> {{paypal_payment_button.render}}
-                        </button>
-                     {% endif %}
-                     
-                  {% endfor %}
-                     
+                  <button  button id="checkout-button" class="btn btn-track purple-btn w100 mt20">Pay with Debit Card  <i class="fas fa-credit-card"></i></button>
+                  <button class="btn btn-track purple-btn w100 mt10" style="height: 80px;">Pay with PayPal <i class="fab fa-paypal"></i> {{paypal_payment_button.render}}</button>
                </div>
             </div>
          </div>
          <br>
          <br>
          <br>
-         <!-- <div class="row">
-            <div class="col-lg-8 col-xl-9">
-               <div class="checkout_form style2">
-                  
-                  <h4 class="title mb20">Billing details</h4>
-                  <div class="alert alert-warning">
-                     <strong>Please review your shipping address before placing an order</strong>
-                  </div>
-                  <a href="{% url 'store:shipping_address' %}" class="btn purple-btn ">Change Address</a>
-                  <br><br>
-                  <br><br>
-                  <div class="checkout_coupon ui_kit_button">
-                     <form class="form2" id="coupon_form" name="contact_form" action="#" method="post">
-                        <div class="row">
-                           <div class="col-sm-12">
-                              <div class="form-group">
-                                 <label class="form-label">Full name *</label>
-                                 <input class="form-control form_control" type="text" readonly value="{{ address.full_name }}">
-                              </div>
-                           </div>
-
-                           <div class="col-sm-6">
-                              <div class="form-group">
-                                 <label class="form-label">Phone *</label>
-                                 <input name="form_phone" class="form-control form_control" type="text" readonly value="{{ address.mobile }}">
-                              </div>
-                           </div>
-                           <div class="col-sm-6">
-                              <div class="form-group">
-                                 <label class="form-label">Your Email</label>
-                                 <input name="form_email" class="form-control form_control email" type="email" readonly value="{{ address.email }}">
-                              </div>
-                           </div>
-                          
-                           <div class="col-sm-6">
-                              <div class="form-group">
-                                 <label class="form-label">Country*</label>
-                                 <input class="form-control form_control" type="text" readonly value="{{ address.country }}">
-                              </div>
-                           </div>
-                           <div class="col-sm-6">
-                              <div class="form-group">
-                                 <label class="form-label">State</label>
-                                 <input class="form-control form_control mb10" type="text" readonly value="{{ address.state }}">
-                              </div>
-                           </div>
-                           <div class="col-sm-6">
-                              <div class="form-group">
-                                 <label class="form-label">Town or City</label>
-                                 <input class="form-control form_control mb10" type="text" readonly value="{{ address.town_city }}">
-                              </div>
-                           </div>
-                           <div class="col-sm-6">
-                              <div class="form-group">
-                                 <label class="form-label">Home Address</label>
-                                 <input class="form-control form_control mb10" type="text" readonly value="{{ address.address }}">
-                              </div>
-                           </div>
-                        </div>
-                     </form>
-                     <div class="ui_kit_button payment_widget_btn">
-                        <input type="hidden" value="{{address.email}}" id="email">
-                     </div>
-                  </div>
-               </div>
-            </div>
-            
-         </div> -->
+        
       </div>
    </section>
 
@@ -302,6 +222,8 @@ Checkout
     var checkoutButton = document.getElementById('checkout-button');
 
     checkoutButton.addEventListener('click', function () {
+
+      checkoutButton.innerHTML = "Processing... <i class='fas fa-spinner fa-spin'></i>"
 
         var email = document.getElementById('email').value;
         if (email.length == 0) {

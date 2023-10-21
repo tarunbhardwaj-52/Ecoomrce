@@ -41,7 +41,7 @@ from paypal.standard.forms import PayPalPaymentsForm
 utc=pytz.UTC
 
 def index(request):
-    addon = BasicAddon.objects.get()
+    addon = BasicAddon.objects.filter().first()
     brands = Brand.objects.filter(active=True)
     products = Product.objects.filter(status="published", featured=True).order_by("-id")[:10]
     top_selling_products = Product.objects.filter(status="published").order_by("-orders")[:10]
@@ -349,7 +349,10 @@ def product_detail(request, slug):
     location_country = request.session['location_country']
     
     tax = TaxRate.objects.filter(country=location_country, active=True).first()
-    new_rate = tax.rate / 100
+    if tax:
+        new_rate = tax.rate / 100
+    else:
+        new_rate = 0.22
     product_plus_shipping = product.price + product.shipping_amount
     tax_rate_amount = Decimal(new_rate) * product_plus_shipping
     
@@ -1680,21 +1683,23 @@ def PaymentSuccessView(request):
         
         company = Company.objects.all().first()
         basic_addon = BasicAddon.objects.all().first()
-        merge_data = {
-            'company': company, 
-            'order': order, 
-            'order_items': order_items, 
-        }
-        subject = f"Order Placed Successfully. ID {order.oid}"
-        text_body = render_to_string("email/message_body.txt", merge_data)
-        html_body = render_to_string("email/message_customer.html", merge_data)
-        
-        msg = EmailMultiAlternatives(
-            subject=subject, from_email=settings.FROM_EMAIL,
-            to=[order.email], body=text_body
-        )
-        msg.attach_alternative(html_body, "text/html")
-        msg.send()
+
+        if basic_addon.send_email_notifications == True:
+            merge_data = {
+                'company': company, 
+                'order': order, 
+                'order_items': order_items, 
+            }
+            subject = f"Order Placed Successfully. ID {order.oid}"
+            text_body = render_to_string("email/message_body.txt", merge_data)
+            html_body = render_to_string("email/message_customer.html", merge_data)
+            
+            msg = EmailMultiAlternatives(
+                subject=subject, from_email=settings.FROM_EMAIL,
+                to=[order.email], body=text_body
+            )
+            msg.attach_alternative(html_body, "text/html")
+            msg.send()
 
         
         for o in order_items:
@@ -1852,21 +1857,22 @@ def payment_completed_view(request, oid, *args, **kwargs):
         
         company = Company.objects.all().first()
         basic_addon = BasicAddon.objects.all().first()
-        merge_data = {
-            'company': company, 
-            'order': order, 
-            'order_items': order_items, 
-        }
-        subject = f"Order Placed Successfully. ID {order.oid}"
-        text_body = render_to_string("email/message_body.txt", merge_data)
-        html_body = render_to_string("email/message_customer.html", merge_data)
-        
-        msg = EmailMultiAlternatives(
-            subject=subject, from_email=settings.FROM_EMAIL,
-            to=[order.email], body=text_body
-        )
-        msg.attach_alternative(html_body, "text/html")
-        msg.send()
+        if basic_addon.send_email_notifications == True:
+            merge_data = {
+                'company': company, 
+                'order': order, 
+                'order_items': order_items, 
+            }
+            subject = f"Order Placed Successfully. ID {order.oid}"
+            text_body = render_to_string("email/message_body.txt", merge_data)
+            html_body = render_to_string("email/message_customer.html", merge_data)
+            
+            msg = EmailMultiAlternatives(
+                subject=subject, from_email=settings.FROM_EMAIL,
+                to=[order.email], body=text_body
+            )
+            msg.attach_alternative(html_body, "text/html")
+            msg.send()
 
         
         for o in order_items:

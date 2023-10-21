@@ -132,8 +132,8 @@ def default(request):
         location_country = "United States"
         request.session['location_country'] = location_country
         tax_country = TaxRate.objects.filter(country=request.session['location_country']).first()
-        tax = tax_country.rate / 100
-        new_rate_ = tax_country.rate / 100
+        tax = 0.2
+        new_rate_ = 0.2
         
         # print("Session Country =====================", request.session['location_country'])
         # print("Session Rate =====================", new_rate_)

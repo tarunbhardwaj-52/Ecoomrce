@@ -51,10 +51,10 @@
                 {{form.password2}}
               </div>
               <br>
-              <div class="form-group mb5">
+              <!-- <div class="form-group mb5">
                 <label class="form-label">Enter the code below</label> <br>
                 {{form.captcha}}
-              </div>
+              </div> -->
             
             <button type="submit" class="btn btn-log btn-thm mt20">Create Account</button>
             <p class="text-center mb25 mt10">Already have an account? <a href="{% url 'userauths:sign-in' %}" class="dashed-custom">Login Now</a></p>
@@ -292,9 +292,9 @@ input[type='text'] {
 
               {{form.password1}}
               {{form.password2}}
-              <hr>
-              <label for="" class="text-left">Enter Captcha Below</label>
-              {{form.captcha}}
+              <!-- <hr> -->
+              <!-- <label for="" class="text-left">Enter Captcha Below</label>
+              {{form.captcha}} -->
               
               <button class="form__btn" id="btn-2-prev">Previous</button>
               <button class="form__btn d-none" id="btn-2-next">Next</button>

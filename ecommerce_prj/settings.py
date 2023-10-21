@@ -72,8 +72,10 @@ INSTALLED_APPS = [
     'paypal.standard.ipn',
     'geoip2',
     'django_user_agents',
-    'captcha',
+    # 'captcha',
     'storages',
+    'crispy_bootstrap5',
+
 ]
 
 
@@ -258,7 +260,9 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+# CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 
 customColorPalette = [
@@ -431,12 +435,12 @@ CKEDITOR_5_CONFIGS = {
 
 
 JAZZMIN_SETTINGS = {
-    'site_header': "Grailcavern",
+    'site_header': "Desphixs",
     'site_brand': "Your #1 marketplace for collectibles.",
     'site_logo': "images/logo.png",
     'copyright':  "All Right Reserved 2023",
     # "order_with_respect_to": ["store", 'vendor', "addons" , 'core' ,'userauths'],
-    "welcome_sign": "Welcome to GrailCavern, Login Now.",
+    "welcome_sign": "Welcome to Desphixs, Login Now.",
     "topmenu_links": [
 
         {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},

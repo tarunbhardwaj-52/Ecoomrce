@@ -19,7 +19,7 @@ urlpatterns = [
     path('help-center/', include("help_center.urls")),
 
     
-    path("ckeditor/", include("ckeditor_uploader.urls")),
+    # path("ckeditor/", include("ckeditor_uploader.urls")),
     path("ckeditor5/", include('django_ckeditor_5.urls')),
     
     # Change Password
@@ -27,7 +27,7 @@ urlpatterns = [
     
     
     # Re-Captcha Validation
-    path('captcha/', include('captcha.urls')),
+    # path('captcha/', include('captcha.urls')),
     
     # Password Reset
     path('user/password-reset/', auth_views.PasswordResetView.as_view( template_name='userauths/password-reset/password_reset.html', subject_template_name='userauths/password-reset/password_reset_subject.txt', email_template_name='userauths/password-reset/password_reset_email.html', success_url='/user/check_email/' ), name='password_reset'),

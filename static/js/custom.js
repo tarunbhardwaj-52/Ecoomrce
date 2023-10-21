@@ -131,7 +131,7 @@ $(document).on("click", "#question-btn", function(){
         console.log("product_stock_qty:", product_stock_qty);
         console.log("product_in_stock:", product_in_stock);
 
-        if (quantity > product_stock_qty) {
+        if (parseInt(quantity) > parseInt(product_stock_qty)) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Oops... Stock Qty Exceeded!',
@@ -160,7 +160,8 @@ $(document).on("click", "#question-btn", function(){
                 },
                 dataType: 'json',
                 beforeSend: function(){
-                    console.log("Adding Product to Cart...");
+                    this_val.html("<i class='fas fa-spinner fa-spin'></i>")
+
                 },
                 success: function(response){
                     // this_val.html("✓")
@@ -189,7 +190,7 @@ $(document).on("click", "#question-btn", function(){
 
         console.log(_pQty);
 
-        if (_pQty > product_stock_qty) {
+        if (parseInt(_pQty) > parseInt(product_stock_qty)) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Oops... Stock Qty Exceeded!',
